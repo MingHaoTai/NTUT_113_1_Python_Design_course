@@ -1,7 +1,7 @@
 # 2024-11-10
 # Roman to Integer
 # I = 1, V = 5, X = 10, L = 50, C = 100, D = 500, M = 1000
-#ex:III = 3, IV = 4, VI = 6
+# ex: III = 3, IV = 4, VI = 6
 
 class Solution(object):
     def romanToInt(self, s : str) -> int:
