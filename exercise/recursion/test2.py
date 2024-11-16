@@ -4,7 +4,7 @@ def f(data : str):
     else:
         for i in range(len(data)):
             x = data[i]
-            y = data[0:i] + data[i+1:]
+            y = data[:i] + data[i+1:]
             r = x + f(y)
             print(r)
         return r
