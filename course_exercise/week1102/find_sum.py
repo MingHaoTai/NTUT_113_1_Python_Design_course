@@ -1,7 +1,5 @@
 # 2024-11-18
 # use LOOP to find sum = N from a num list
-bag = []
-
 def remove(data : list, bag : list):
     for i in bag:
         data.remove(i)
