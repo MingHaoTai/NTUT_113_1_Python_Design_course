@@ -56,9 +56,9 @@ if __name__ == '__main__':
     score_a = matchDiagonal(a, circle) + matchStraight(a, circle)
     score_b = matchDiagonal(b, circle) + matchStraight(b, circle)
     if score_a > score_b:
-        print('A win')
+        print('A Win')
     elif score_a < score_b:
-        print('B win')
+        print('B Win')
     else:
         print('Tie')
     
