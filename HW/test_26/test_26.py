@@ -89,13 +89,15 @@ def match(pack_no : list, load_limit : int, bag : list, index : int):
     elif int(pack_no[index][0]) > load_limit:
         print('Cannot be delivered')
         return False 
-    elif int(pack_no[index][0]) == load_limit:
-        bag.append(pack_no[index])
-        return True
     elif match(pack_no, load_limit, bag, index+1) == True:
         return True
     elif match(pack_no, load_limit - int(pack_no[index][0]), bag, index+1) == True:
         bag.append(pack_no[index])
+        print(bag)
+        return True
+    elif int(pack_no[index][0]) == load_limit:
+        bag.append(pack_no[index])
+        print(bag)
         return True
 
 getData()
