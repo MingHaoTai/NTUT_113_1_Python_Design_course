@@ -1,3 +1,5 @@
-data = {1:[1, 3, 2], 2:[1, 2, 2]}
-data = sorted(data, key=lambda data[num] : data[num][1])
-print(data)
+from decimal import Decimal
+x = Decimal('0.01')
+for i in range(15):
+    x += Decimal('0.01')
+    print(x)
