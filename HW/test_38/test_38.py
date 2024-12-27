@@ -1,65 +1,49 @@
-# 2024-12-21
+# 2024-12-28
 def getData():
-    n, start, end = input().split()
-    restStop = input().split()
-    path = list(None for i in range(int(n)))
-    for i in range(int(n)):
-        path[i] = input().split()
-    return start, end, restStop, path
+    n, start, end = map(int, input().split())  # road amounts, start stop, end stop
+    restStop = map(int, input().split())    # rest stop
+    graph = {}  # every stop connect
+    for i in range(n):  # every road
+        a, b = map(int, input().split())
+        if a not in graph:
+            graph[a] = []
+        if b not in graph:
+            graph[b] = []
+        graph[a].append(b)
+        graph[b].append(a)
+    return start, end, restStop, graph
 
-def findAllPath(start : str, end : str, index : int, path : list, findPath : list):
-    findPath.append([])
-    i = 0
-    while i < len(path):
-        if start in path[i]:
-            findPath[index].append(path[i])
-            path.remove(path[i])
-            i = 0
-        else:
-            i += 1
-    for i in range(len(findPath[index])):
-        if start in findPath[index][i]:
-            findAllPath(findPath[index][i][findPath[index][i].index(start)-1], end, index+1, path, findPath) 
-
-def allCorrect(start : str, end : str, findPath : list, index : int, bag : list):
-    flag = False
-    if index >= len(findPath):
-        return False
-    else:
-        for i in range(len(findPath[index])):
-            if start in findPath[index][i]:
-                flag = True
-                bag.append(findPath[index][i])
-                if end in findPath[index][i]:
-                    # print(bag)
-                    bag = []
-                    return True
-                else:
-                    if allCorrect(findPath[index][i][findPath[index][i].index(start)-1], end, findPath, index+1, bag) == True:
-                        return True
-        if flag == False:
-            return False
+def findShortest(start, end, graph):
+    queue = [(start, [start])]  # the stack (next_start_stop, path)
+    visited = []
+    while queue:
+        current, path = queue.pop(0)
+        if current == end:
+            return path
+        if current not in visited:
+            visited.append(current)
+            for i in graph.get(current, []):
+                if i not in visited:
+                    queue.append((i, path + [i]))
+    return None
 
 if __name__ == '__main__':
-    start, end, restStop, path = getData()
-    findPath = []
-    findAllPath(start, end, 0, path, findPath)
-    i = 0
-    while i < len(findPath):
-        if findPath[i] == []:
-            findPath.remove([])
-            i = 0
-        else:
-            i += 1
-    print(findPath)
-    bag = []
-    mul = 1
-    for i in range(len(findPath)):
-        mul = mul * len(findPath[i])
-    for i in range(mul):
-        bag = []
-        allCorrect(start, end, findPath, 0, bag)
-        print(bag)
-    # data = [['1', '2'], ['3', '4']]
-    # print('1' in data)
-    # print(len([]))
+    start, end, restStop, graph = getData()
+    shortestRest = None
+    shortestEnd = None
+    shortest = None
+    allPath = None
+    Stop = None
+    for rest in restStop:
+        shortestRest = findShortest(start, rest, graph)
+        shortestEnd = findShortest(rest, end, graph)
+        if shortestEnd != None and shortestRest != None:
+            all_path = shortestRest[:-1] + shortestEnd
+            if shortest == None or len(all_path) < len(shortest):
+                shortest = all_path
+                Stop = rest
+    if shortest != None:
+        print(Stop)
+        print(' '.join(map(str, shortest)))
+    else:
+        print('NO')
