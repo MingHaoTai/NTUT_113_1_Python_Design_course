@@ -83,7 +83,7 @@ def mySort(data : list):
             break
     return data
 
-def match(pack_no : list, load_limit : int, bag : list, index : int):
+def match(pack_no : list, load_limit : int, bag : list, index : int):   # Find bag
     if index >= len(pack_no):
         return False
     elif int(pack_no[index][0]) > load_limit:
